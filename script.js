@@ -77,3 +77,40 @@ const z = 3;
 console.log(x === window.x);
 console.log(y === window.y);
 console.log(z === window.z);
+
+//This keyword
+console.log(this);
+
+//ima svoj this keyword
+const calcAge2 = function(birthYear) {
+    console.log(2037 - birthYear);  
+    //console.log(this);
+}
+calcAge2(1991);
+
+//nema svoj this keyword
+const calcAgeArrow = birthYear => {
+    console.log(2037 - birthYear);  
+    //console.log(this);
+}
+calcAgeArrow(1991);
+
+const jonas = {
+    year: 1991,
+    calcAge: function() {
+        console.log(this); //jonas object, owner of the method
+        console.log(2037 - this.year);
+    },
+};
+jonas.calcAge();
+
+const matilda = {
+    year: 2017,
+};
+
+//method borrowing
+matilda.calcAge = jonas.calcAge;
+matilda.calcAge(); //this keyword is now matilda object
+
+const f = jonas.calcAge;
+f(); //undefined, this keyword is undefined, zato sto je ovo samo obican poziv funkcije, a ne metode objekta
