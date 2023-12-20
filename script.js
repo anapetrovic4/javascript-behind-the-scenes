@@ -95,22 +95,74 @@ const calcAgeArrow = birthYear => {
 }
 calcAgeArrow(1991);
 
-const jonas = {
-    year: 1991,
-    calcAge: function() {
-        console.log(this); //jonas object, owner of the method
-        console.log(2037 - this.year);
-    },
-};
-jonas.calcAge();
+// const jonas = {
+//     year: 1991,
+//     calcAge: function() {
+//         console.log(this); //jonas object, owner of the method
+//         console.log(2037 - this.year);
+//     },
+// };
+// jonas.calcAge();
 
-const matilda = {
-    year: 2017,
-};
+// const matilda = {
+//     year: 2017,
+// };
 
 //method borrowing
-matilda.calcAge = jonas.calcAge;
-matilda.calcAge(); //this keyword is now matilda object
+//matilda.calcAge = jonas.calcAge;
+//matilda.calcAge(); //this keyword is now matilda object
 
-const f = jonas.calcAge;
-f(); //undefined, this keyword is undefined, zato sto je ovo samo obican poziv funkcije, a ne metode objekta
+//const f = jonas.calcAge;
+//f(); //undefined, this keyword is undefined, zato sto je ovo samo obican poziv funkcije, a ne metode objekta
+
+//Regular function vs arrow function
+//ovo nije code block, vec object literal
+//var firstName = 'Matilda';
+
+const ana = {
+    firstName: 'Ana',
+    year: 1991,
+    calcAge: function() {
+       //console.log(this); 
+        console.log(2037 - this.year);
+
+        //Solution 1
+        // const self = this; //self or that
+        // const isMillenial = function(){
+        //     console.log(self);
+        //    //console.log(this.year >= 1981 && this.year <= 1996);
+        //     console.log(self.year >= 1981 && self.year <= 1996);
+        // };
+
+        //Solution 2 - arrow function uses this keyword from its parent scope
+        const isMillenial = () => {
+            console.log(this);
+            console.log(this.year >= 1981 && this.year <= 1996);
+        };
+
+        isMillenial(); //regular function call, this keyword is undefined
+    },
+    greet: function() {
+        console.log(this);
+        console.log(`Hey ${this.firstName}`);
+    },
+};
+
+ana.greet(); // Outputs the correct 'Hey Ana'
+ana.calcAge(); // Outputs 46, and true
+
+//Arguments keyword
+const addExpr2 = function(a, b){
+    console.log(arguments);
+    return a + b;
+};
+
+addExpr2(2, 5);
+addExpr2(2, 5, 8, 12);
+
+var addArrow2 = (a, b) => {
+    console.log(arguments);
+    return a + b;
+};
+
+addArrow2(2, 5, 8); //error, arguments is not defined
