@@ -160,9 +160,60 @@ const addExpr2 = function(a, b){
 addExpr2(2, 5);
 addExpr2(2, 5, 8, 12);
 
-var addArrow2 = (a, b) => {
-    console.log(arguments);
-    return a + b;
+// var addArrow2 = (a, b) => {
+//     console.log(arguments);
+//     return a + b;
+// };
+
+//addArrow2(2, 5, 8); //error, arguments is not defined
+
+//Primitive vs Objects (Primitive vs Reference Types)
+let age = 30;
+let oldAge = age;
+age = 31;
+console.log(age);
+console.log(oldAge);
+
+const me1 = {
+    name: 'Ana',
+    age: 23,
 };
 
-addArrow2(2, 5, 8); //error, arguments is not defined
+const friend = me1;
+friend.age = 27;
+console.log('Friend:', friend);
+console.log('Me:', me1);
+
+//Primitive types vs Reference types in practice
+let lastName = 'Williams';
+let oldLastName = lastName;
+lastName = 'Davis';
+console.log(lastName, oldLastName);
+
+const jessica = {
+    firstName: 'Jessica',
+    lastName: 'Williams',
+    age: 27,
+    family: ['Alice', 'Bob'],
+};
+const marriedJessica = jessica;
+marriedJessica.lastName = 'Davis';
+console.log('Before marriage:', jessica);
+console.log('After marriage:', marriedJessica);
+
+//Copying objects
+const jessica2 = {
+    firstName: 'Jessica',
+    lastName: 'Williams',
+    age: 27,
+    family: ['Alice', 'Bob'],
+};
+
+const jessicaCopy = Object.assign({}, jessica2);
+jessicaCopy.lastName = 'Davis';
+
+jessicaCopy.family.push('Mary');
+jessicaCopy.family.push('John');
+
+console.log('Before marriage:', jessica2);
+console.log('After marriage:', jessicaCopy);
